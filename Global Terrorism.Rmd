@@ -2,17 +2,16 @@
 title: "GlobalTerrorism"
 output: html_document
 date: "2024-09-10"
+group: 4
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Reading CSV file
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Analyze the target types. Filter and group data by target type. Read file and take a glimpse.
 
 ```{r global terrorism}
 library(dplyr)
@@ -21,9 +20,9 @@ gtd_data <- read.csv("globalterrorismdb_0718dist.csv", stringsAsFactors = FALSE)
 glimpse(gtd_data)
 ```
 
-## Including Plots
+## Cleaning data
 
-You can also embed plots, for example:
+Select chosen column and clean NAs from nkill column.
 
 ```{r pressure, echo=FALSE}
 gtd_clean <- gtd_data %>%
@@ -32,7 +31,7 @@ gtd_clean <- gtd_data %>%
 # Removes rows where nkill (fatalities) is NA
 
 # View a summary of cleaned data.
-summary(gtd_data)
+summary(gtd_clean)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
