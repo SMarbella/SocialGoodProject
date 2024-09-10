@@ -18,6 +18,7 @@ library(dplyr)
 library(tidyverse)
 gtd_data <- read.csv("globalterrorismdb_0718dist.csv", stringsAsFactors = FALSE)
 glimpse(gtd_data)
+
 ```
 
 ## Cleaning data
@@ -26,9 +27,7 @@ Select chosen column and clean NAs from nkill column.
 
 ```{r pressure, echo=FALSE}
 gtd_clean <- gtd_data %>%
-  select(iyear, country_txt, attacktype1_txt, nkill) %>%
-  filter(!is.na(nkill))
-# Removes rows where nkill (fatalities) is NA
+  select(iyear, country_txt, targtype1_txt, targsubtype1, targtype2_txt, targtype2, targsubtype3_txt, targsubtype3)
 
 # View a summary of cleaned data.
 summary(gtd_clean)
