@@ -21,16 +21,31 @@ glimpse(gtd_data)
 
 ```
 
-## Cleaning data
+## Cleaning data or data wrangling
 
-Select chosen column and clean NAs from nkill column.
+Role 1: Group and prepare data by attack type. Select chosen column and clean NAs from nkill column.
 
 ```{r pressure, echo=FALSE}
 gtd_clean <- gtd_data %>%
-  select(iyear, country_txt, targtype1_txt, targsubtype1, targtype2_txt, targtype2, targsubtype3_txt, targsubtype3)
+  select(iyear, country_txt, targtype1, targtype2, targtype3) %>%
+  filter(!is.na(targtype1), !is.na(targtype2), !is.na(targtype3))
+
+
+glimpse(gtd_clean)
 
 # View a summary of cleaned data.
 summary(gtd_clean)
 ```
+## Sums
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Role 2: Count the number of each attack type.
+
+```{r pressure, echo=FALSE}
+# Creates data frame.
+df <- data.frame(Type_1 = gtd_clean$targtype1, Type_2 = gtd_clean$targtype2, Type_3 = gtd_clean$targtype3)
+
+sum(df$Type_1)
+sum(df$Type_2)
+sum(df$Type_3)
+```
+
