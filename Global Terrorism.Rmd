@@ -23,11 +23,11 @@ glimpse(gtd_data)
 
 ## Cleaning data or data wrangling
 
-Role 1: Group and prepare data by attack type. Select chosen column and clean NAs from nkill column.
+Role 1: Group and prepare data by target type. Select chosen columns and clean NAs from targtype columns.
 
 ```{r pressure, echo=FALSE}
 gtd_clean <- gtd_data %>%
-  select(iyear, country_txt, targtype1, targtype2, targtype3) %>%
+  select(iyear, country, targtype1_txt, targtype2_txt, targtype3_txt, nkill) %>%
   filter(!is.na(targtype1), !is.na(targtype2), !is.na(targtype3))
 
 
@@ -38,14 +38,26 @@ summary(gtd_clean)
 ```
 ## Sums
 
-Role 2: Count the number of each attack type.
+Role 2: Count the number of each target type.
 
 ```{r pressure, echo=FALSE}
 # Creates data frame.
-df <- data.frame(Type_1 = gtd_clean$targtype1, Type_2 = gtd_clean$targtype2, Type_3 = gtd_clean$targtype3)
+df <- data.frame(Type_1 = gtd_clean$targtype1, Type_2 = gtd_clean$targtype2, Type_3 = gtd_clean$targtype3, Text_1 = gtd_clean$targtype1_txt, Text_2 = gtd_clean$targtype2_txt, Text_3 = gtd_clean$targtype3_txt)
 
 sum(df$Type_1)
 sum(df$Type_2)
 sum(df$Type_3)
 ```
 
+## Data visualization
+
+Role 3: Visualize the attack frequency by target type.
+
+```{r pressure, echo=FALSE}
+# Creates data frame.
+df %>% ggplot(aes(x=Type_1)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  
+  
+```
